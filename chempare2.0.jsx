@@ -1,5 +1,12 @@
 
-Tasks = new Mongo.Collection("tasks");
+Products = new Mongo.Collection("products");
+
+if(Meteor.isServer){
+    Meteor.publish("products", function (query) {
+        console.log('query')
+        return Products.find(query || {}, {limit: 100});
+  });
+}
 
 if (Meteor.isClient) {
     Accounts.ui.config({
