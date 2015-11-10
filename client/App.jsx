@@ -93,11 +93,11 @@ TableView = React.createClass({
                     </tr>
                 </thead>
                 <tbody>
-                    { this.data.products.map(product => {
+                   { !this.data.loading ? this.data.products.map(product => {
                         return <tr key={product._id._str}>{this.fields.map(field => {
                             return <td key={field}>{product[field]}</td>
                         })}</tr>
-                    })}
+                    }) : <tr><td><div className="loading"></div></td></tr> }
                 </tbody>
                 </table>
         </div>
