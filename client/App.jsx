@@ -138,7 +138,7 @@ TableView = React.createClass({
         this.removeListeners();
     },
 
-    handleToggleProduct(id) {
+    handleToggleProduct(id, product) {
         const visibleProducts = {...this.state.visibleProducts};
         if(visibleProducts[id]){
             delete visibleProducts[id];
@@ -146,17 +146,23 @@ TableView = React.createClass({
         else{
             visibleProducts[id] = true;
         }
+        if(product.cas && !product.imgUrl){
+            Meteor.call('getPubmed', product)
+        }
         this.setState({visibleProducts: visibleProducts})
     },
 
     renderRows() {
         const rows = [];
         {  this.data.products.map(product => {
-            rows.push(<tr key={product._id._str} onClick={this.handleToggleProduct.bind(this, product._id._str) }>{this.fields.map(field => {
+            rows.push(<tr key={product._id._str} onClick={this.handleToggleProduct.bind(this, product._id._str, product) }>{this.fields.map(field => {
                 return <td key={field}>{renderCell(product[field], product, field)}</td>
             })}</tr>);
             if(this.state.visibleProducts[product._id._str]){
-                rows.push(<tr key={product._id._str+'-dropdown'}><td colSpan={this.fields.length}></td></tr>);
+                rows.push(<tr key={product._id._str+'-dropdown'}>
+                          <td colSpan={this.fields.length}>
+                            { product.imgUrl ? <img src={product.imgUrl} height={300} width={300} /> : null}
+                          </td></tr>);
             }
         })  };
         return rows;

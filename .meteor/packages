@@ -22,3 +22,5 @@ accounts-ui
 accounts-password
 fourseven:scss
 reywood:bootstrap3-sass
+fermuch:cheerio
+http
