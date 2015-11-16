@@ -44,4 +44,19 @@ body {
     padding:2em;
     background-color:#ffffff;
     border-radius:0.5em;
+    table {
+     table-layout: fixed;
+    }
+    table th {
+        cursor:pointer;
+        &.selected{
+            color:#ff0000;
+        }
+    }
+    th:first-child, td:first-child{
+        width:20%;
+    }
+    th, td {
+        width:13.3%;
+    }
 }

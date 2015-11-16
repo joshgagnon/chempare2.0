@@ -2,9 +2,14 @@
 Products = new Mongo.Collection("products");
 
 if(Meteor.isServer){
-    Meteor.publish("products", function (query) {
-        console.log('query')
-        return Products.find(query || {}, {limit: 100});
+    Meteor.publish("products", function (query, sort, limit) {
+        console.log('query',query || {}, {limit, sort})
+        return Products.find(query || {}, {limit, sort});
+        // , 'cas', 'mol_weight', 'price', 'amount', 'price_per_unit', 'url'
+       /* return Products.aggregate([{_id : {product_name, cas, mol_weight, price, price_per_unit}
+                                   url: '$push'
+                                  },
+                                  );*/
   });
 }
 
