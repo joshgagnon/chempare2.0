@@ -146,7 +146,7 @@ TableView = React.createClass({
         else{
             visibleProducts[id] = true;
         }
-        if(product.cas && !product.imgUrl){
+        if(product.cas && !product.prodMedId){
             Meteor.call('getPubmed', product)
         }
         this.setState({visibleProducts: visibleProducts})

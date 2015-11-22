@@ -1,7 +1,9 @@
 
 Products = new Mongo.Collection("products");
+PubMed = new Mongo.Collection("pubMed");
 
 if(Meteor.isServer){
+    // to do, filter attributes
     Meteor.publish("products", function (query, sort, limit) {
         console.log('query',query || {}, {limit, sort})
         return Products.find(query || {}, {limit, sort});
@@ -9,6 +11,14 @@ if(Meteor.isServer){
        /* return Products.aggregate([{_id : {product_name, cas, mol_weight, price, price_per_unit}
                                    url: '$push'
                                   },                                  );*/
+  });
+
+    Meteor.publish("pubmed", function (pubMedIds) {
+        console.log('query'. ids)
+        return PubMed.find({"_id": {
+            "$in": pubMedIds
+        }});
+
   });
 
     function queryPubmed(product, callback){
@@ -32,8 +42,8 @@ if(Meteor.isServer){
 
     Meteor.methods({
         getPubmed: function(product){
-            const result = wrappedQueryPubmed(product);
-            const $ = cheerio.load(result.content);
+            const queryResult = wrappedQueryPubmed(product);
+            const $ = cheerio.load(queryResult.content);
             let cid;
             console.log('FETCHED')
             if($('body').data('pubchem-id')){
@@ -45,10 +55,12 @@ if(Meteor.isServer){
                     cid = matches[1];
                 }
             }
-
             if(cid){
-                console.log("FOUND PUBMED_ID", product)
-                Products.update(product._id, { $set: { imgUrl: 'https://pubchem.ncbi.nlm.nih.gov/image/imagefly.cgi?cid='+cid+'&width=200&height=200', pubmedId: cid }});
+            const jsonResult = wrappedQueryPubmed(cid);
+                data =JSON.loads(result.content).Record;
+                const pubMedId = PubMed.insert(data)
+                Products.update(product._id, { $set: { pubmedId: pubMedId }});
+                //Products.update(product._id, { $set: { imgUrl: 'https://pubchem.ncbi.nlm.nih.gov/image/imagefly.cgi?cid='+cid+'&width=200&height=200', pubmedId: cid }});
                 pubmedInfo(cid);
             }
 
