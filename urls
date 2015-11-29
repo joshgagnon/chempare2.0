@@ -1,0 +1,6 @@
+curl 'http://www.sigmaaldrich.com/catalog/PricingAvailability.do?productNumber=B0394&brandKey=SIAL&divId=pricingContainerMessage' -H 'Pragma: no-cache' -H 'Origin: http://www.sigmaaldrich.com'  -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' -H 'Accept: text/html, */*; q=0.01' -H 'Cache-Control: no-cache' -H 'X-Requested-With: XMLHttpRequest' -H 'Cookie:   SialLocaleDef=CountryCode~NZ|WebLang~-1|; ' -H 'Connection: keep-alive' -H 'Referer: http://www.sigmaaldrich.com/catalog/product/sial/b0394?lang=en&region=NZ' --data 'loadFor=PRD_RS' --compressed
+
+
+
+
+curl 'http://www.sigmaaldrich.com/catalog/PricingAvailability.do?productNumber=B0394&brandKey=SIAL&divId=pricingContainerMessage' -H 'Pragma: no-cache' -H 'Origin: http://www.sigmaaldrich.com'  -H 'Content-Type: application/x-www-form-urlencoded; charset=UTF-8' -H 'Accept: text/html, */*; q=0.01' -H 'Cache-Control: no-cache' -H 'X-Requested-With: XMLHttpRequest' -H 'Cookie:  SialLocaleDef=CountryCode~US|WebLang~-1|; ' -H 'Connection: keep-alive' -H 'Referer: http://www.sigmaaldrich.com/catalog/product/sial/b0394?lang=en&region=US' --data 'loadFor=PRD_RS' --compressed
